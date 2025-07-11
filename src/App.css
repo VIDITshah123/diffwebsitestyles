@@ -28,30 +28,76 @@
   max-width: 100%;
 }
 
+/* Base button style */
 .style-button {
   padding: 8px 16px;
   border: none;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  color: white;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
   transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid;
 }
 
-.style-button:hover {
+/* Light variant (for dark backgrounds) */
+.style-button.light {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.style-button.light:hover {
   background: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
 
-.style-button.active {
+.style-button.light.active {
   background: white;
   color: #6e8efb;
   font-weight: 600;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark variant (for light backgrounds) */
+.style-button.dark {
+  background: rgba(0, 0, 0, 0.2);
+  color: #333;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.style-button.dark:hover {
+  background: rgba(0, 0, 0, 0.3);
+  color: #111;
+  transform: translateY(-2px);
+}
+
+.style-button.dark.active {
+  background: #333;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Style selector adjustments */
+.style-selector {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 20px;
+  max-width: 100%;
+  pointer-events: none; /* Allow clicks to pass through to elements below */
+}
+
+.style-selector > * {
+  pointer-events: auto; /* Re-enable pointer events on buttons */
 }
 
 /* Glassmorphism Base */
@@ -139,11 +185,21 @@
   padding: 40px;
 }
 
-/* Special styling for minimalist theme */
+/* Special styling for Minimalist specific styles */
 .App.minimalist .hero-content {
   background: white;
   color: #333;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Ensure proper contrast for dark text on light backgrounds */
+.App.minimalist .style-button,
+.App.minimalist .style-button:hover {
+  color: #333;
+}
+
+.App.minimalist .style-button.active {
+  color: white;
 }
 
 .App.minimalist .navbar {
