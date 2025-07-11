@@ -1,38 +1,378 @@
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease;
+}
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
+  transition: background 0.5s ease;
+}
+
+/* Style Selector */
+.style-selector {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 20px;
+  max-width: 100%;
+}
+
+.style-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.style-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.style-button.active {
+  background: white;
+  color: #6e8efb;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Glassmorphism Base */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 20px;
+}
+
+/* Default Style */
+.App.default .hero {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+}
+
+/* Carousel/Slideshow Style */
+.App.carousel .hero {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+}
+
+/* Grid Layouts Style */
+.App.grid .hero {
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+
+/* Typography-focused Style */
+.App.typography .hero {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+/* Split Screen Style */
+.App.split .hero {
+  background: linear-gradient(90deg, #ff416c 0%, #ff4b2b 100%);
+}
+
+/* Minimalist Style */
+.App.minimalist .hero {
+  background: #f5f5f5;
+  color: #333;
+}
+
+/* Gradient Backgrounds Style */
+.App.gradient .hero {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Interactive Elements Style */
+.App.interactive .hero {
+  background: linear-gradient(135deg, #8e2de2, #4a00e0);
+}
+
+/* Apply glassmorphism to content */
+.hero-content {
+  padding: 40px;
+  max-width: 800px;
+  width: 90%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Apply glass effect to all styles except minimalist */
+.App:not(.minimalist) .hero-content {
+  composes: glass;
+  padding: 40px;
+}
+
+/* Special styling for minimalist theme */
+.App.minimalist .hero-content {
+  background: white;
+  color: #333;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.App.minimalist .navbar {
+  background: white;
+  color: #333;
+}
+
+.App.minimalist .nav-links a {
+  color: #333;
+}
+
+.App.minimalist .nav-links a:hover {
+  color: #6e8efb;
+}
+
+/* Typography specific styles */
+.App.typography .hero-content {
+  max-width: 900px;
+  text-align: left;
+  padding: 60px;
+}
+
+.App.typography h1 {
+  font-size: 4rem;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+/* Split screen specific styles */
+.App.split .hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 0;
+}
+
+.App.split .hero-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border-radius: 0;
+  padding: 0 60px;
+}
+
+.App.split .navbar {
+  position: absolute;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+/* Grid layout specific styles */
+.App.grid .hero-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  text-align: left;
+  max-width: 1200px;
+  padding: 40px;
+}
+
+.App.grid .content-block {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+
+/* Interactive elements specific styles */
+.App.interactive .cta-button {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.App.interactive .cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+  z-index: -1;
+}
+
+.App.interactive .cta-button:hover::before {
+  left: 100%;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 5%;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
   color: white;
+  text-decoration: none;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 2rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.nav-links a:hover {
+  color: #f0f0f0;
+  text-decoration: underline;
+}
+
+/* Hero Content */
+.hero-content {
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* CTA Button */
+.cta-button {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #6e8efb;
+  background-color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  background-color: #f8f9fa;
+}
+
+.cta-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .style-selector {
+    top: 10px;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .style-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .App.typography h1 {
+    font-size: 2.5rem;
+  }
+  
+  .App.split .hero {
+    grid-template-columns: 1fr;
+  }
+  
+  .App.split .hero-content {
+    padding: 40px 20px;
+  }
+  
+  .App.typography .hero-content {
+    padding: 30px 20px;
+  }
+  .navbar {
+    flex-direction: column;
+    padding: 1rem 5%;
+  }
+  
+  .nav-links {
+    margin-top: 1rem;
+  }
+  
+  .nav-links a {
+    margin: 0 0.8rem;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero-content p {
+    font-size: 1rem;
+  }
+  
+  .cta-button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
   }
 }
